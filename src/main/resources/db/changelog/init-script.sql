@@ -1,6 +1,3 @@
-liquibase formatted sql
-changeset chan:1
-
 DROP USER IF EXISTS chaneto;
 DROP DATABASE IF EXISTS orders_db;
 
