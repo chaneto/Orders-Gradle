@@ -1,8 +1,11 @@
 package com.example.OrdersGradle.web;
 
+import com.example.OrdersGradle.model.entities.Order;
+import com.example.OrdersGradle.web.assembler.OrderAssembler;
 import com.example.OrdersGradle.web.resource.OrderCreateResource;
 import com.example.OrdersGradle.web.resource.OrderResource;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,10 +20,15 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping("orders")
 public class OrderController {
 
+  @Autowired
   private final RabbitTemplate template;
+  @Autowired
+  private final OrderAssembler orderAssembler;
 
-  public OrderController(RabbitTemplate template) {
+  public OrderController(RabbitTemplate template,
+    OrderAssembler orderAssembler) {
     this.template = template;
+    this.orderAssembler = orderAssembler;
   }
 
   @PostMapping
@@ -29,7 +37,8 @@ public class OrderController {
     @ApiResponse(code = 404, message = "Not found"),
     @ApiResponse(code = 500, message = "Internal Server Error")})
   public ResponseEntity<?> addOrders(@RequestBody OrderCreateResource orderCreateResource) {
-    template.convertAndSend("message_exchange", "message_routingKEY", orderCreateResource);
+    Order order = this.orderAssembler.assembleOrder(orderCreateResource);
+    template.convertAndSend("message_exchange", "message_routingKEY", order);
     return new ResponseEntity<>(orderCreateResource, HttpStatus.CREATED);
   }
 }

@@ -3,9 +3,9 @@ package com.example.OrdersGradle.web.assembler;
 import com.example.OrdersGradle.model.entities.Order;
 import com.example.OrdersGradle.web.resource.OrderCreateResource;
 import com.example.OrdersGradle.web.resource.OrderResource;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class OrderAssembler {
 
   public Order assembleOrder(OrderCreateResource orderCreateResource) {

@@ -1,9 +1,9 @@
 package com.example.OrdersGradle.services;
 
-import com.example.OrdersGradle.web.resource.OrderCreateResource;
+import com.example.OrdersGradle.model.entities.Order;
 
 public interface OrderService {
 
-  void seedOrder(OrderCreateResource orderCreateResource);
+  void seedOrder(Order order);
 
 }
