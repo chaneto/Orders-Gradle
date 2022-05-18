@@ -40,11 +40,4 @@ public class RabbitMQConfig {
     template.setMessageConverter(converter());
     return template;
   }
-
-  @Bean
-  public AmqpTemplate template2(ConnectionFactory connectionFactory) {
-    RabbitTemplate template = new RabbitTemplate(connectionFactory);
-    template.setMessageConverter(converter());
-    return template;
-  }
 }
