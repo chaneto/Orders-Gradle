@@ -42,7 +42,7 @@ public class RabbitMQConfig {
   }
 
   @Bean
-  public AmqpTemplate template1(ConnectionFactory connectionFactory) {
+  public AmqpTemplate template2(ConnectionFactory connectionFactory) {
     RabbitTemplate template = new RabbitTemplate(connectionFactory);
     template.setMessageConverter(converter());
     return template;
