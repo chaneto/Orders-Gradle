@@ -20,11 +20,10 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping("orders")
 public class OrderController {
 
-  @Autowired
   private final RabbitTemplate template;
-  @Autowired
   private final OrderAssembler orderAssembler;
 
+  @Autowired
   public OrderController(RabbitTemplate template,
     OrderAssembler orderAssembler) {
     this.template = template;
